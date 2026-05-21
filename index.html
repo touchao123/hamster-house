@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="宠物小屋">
+  <meta name="description" content="虚拟宠物小屋 — 照顾你的可爱仓鼠小伙伴！">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>🐹 宠物小屋</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header>
+      <h1>🐹 宠物小屋</h1>
+      <div class="coin-display">🪙 <span id="coinCount">0</span></div>
+    </header>
+
+    <!-- Pet Area -->
+    <main>
+      <div id="petArea">
+        <div id="petContainer">
+          <div id="petFace" class="pet-happy">😊</div>
+          <div id="pet">🐹</div>
+        </div>
+        <div id="petName">小团子</div>
+      </div>
+
+      <!-- Status Bars -->
+      <div id="statusBars">
+        <div class="status-row">
+          <span class="status-icon">🍎</span>
+          <div class="bar-bg">
+            <div id="hungerBar" class="bar-fill bar-green" style="width:80%"></div>
+          </div>
+          <span id="hungerText">80%</span>
+        </div>
+        <div class="status-row">
+          <span class="status-icon">🧹</span>
+          <div class="bar-bg">
+            <div id="cleanBar" class="bar-fill bar-blue" style="width:80%"></div>
+          </div>
+          <span id="cleanText">80%</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div id="quickActions">
+        <button class="action-btn" onclick="feed()">🍎 喂食</button>
+        <button class="action-btn" onclick="clean()">🧹 清洁</button>
+      </div>
+
+      <!-- Room Decoration -->
+      <div id="roomArea">
+        <div id="room">
+          <div id="decorations"></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <nav id="tabs">
+        <button class="tab active" data-tab="shop" onclick="switchTab('shop')">🛒 商店</button>
+        <button class="tab" data-tab="tasks" onclick="switchTab('tasks')">📋 任务</button>
+        <button class="tab" data-tab="deco" onclick="switchTab('deco')">🏠 装饰</button>
+      </nav>
+
+      <!-- Shop Panel -->
+      <div id="shopPanel" class="panel active">
+        <div class="panel-header">🛒 商店</div>
+        <div id="shopItems" class="grid-list"></div>
+      </div>
+
+      <!-- Tasks Panel -->
+      <div id="tasksPanel" class="panel">
+        <div class="panel-header">📋 每日任务</div>
+        <div id="taskList" class="grid-list"></div>
+      </div>
+
+      <!-- Decoration Panel -->
+      <div id="decoPanel" class="panel">
+        <div class="panel-header">🏠 房间装饰</div>
+        <div id="decoList" class="grid-list"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
