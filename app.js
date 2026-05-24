@@ -28,7 +28,7 @@ const SHOP_ITEMS = [
 const DAILY_TASKS = [
   { id: 'feed3', name: '喂食 3 次', icon: '🍎', need: 3 },
   { id: 'clean2', name: '清洁 2 次', icon: '🧹', need: 2 },
-  { id: 'visit', name: '来看小团子', icon: '👋', need: 1 },
+  { id: 'visit', name: '来看宠物', icon: '👋', need: 1 },
 ];
 
 // Pet expression mapping based on status
@@ -95,6 +95,9 @@ function checkDailyReset() {
 function updateUI() {
   // Coins
   document.getElementById('coinCount').textContent = state.coins;
+
+  // Pet name
+  document.getElementById('petName').textContent = state.petName;
 
   // Pet expression
   const expr = getPetExpression(state.hunger, state.clean);
@@ -263,14 +266,14 @@ function checkTasks(action) {
 /* ===== Actions ===== */
 function feed() {
   if (state.hunger >= 100) {
-    showToast('小团子已经很饱了！😋');
+    showToast(`${state.petName}已经很饱了！😋`);
     return;
   }
   state.hunger = Math.min(100, state.hunger + 15);
   state.coins += 5;
   document.getElementById('petContainer').classList.add('bounce');
   setTimeout(() => document.getElementById('petContainer').classList.remove('bounce'), 400);
-  showToast('🍎 小团子吃得开心！+5 🪙');
+  showToast(`🍎 ${state.petName}吃得开心！+5 🪙`);
   checkTasks('feed');
   saveGame();
   updateUI();
@@ -278,14 +281,14 @@ function feed() {
 
 function clean() {
   if (state.clean >= 100) {
-    showToast('小团子已经很干净了！✨');
+    showToast(`${state.petName}已经很干净了！✨`);
     return;
   }
   state.clean = Math.min(100, state.clean + 15);
   state.coins += 5;
   document.getElementById('petContainer').classList.add('bounce');
   setTimeout(() => document.getElementById('petContainer').classList.remove('bounce'), 400);
-  showToast('🧹 小团子变干净了！+5 🪙');
+  showToast(`🧹 ${state.petName}变干净了！+5 🪙`);
   checkTasks('clean');
   saveGame();
   updateUI();
@@ -297,9 +300,26 @@ document.addEventListener('DOMContentLoaded', () => {
     state.coins += 2;
     document.getElementById('petContainer').classList.add('bounce');
     setTimeout(() => document.getElementById('petContainer').classList.remove('bounce'), 400);
-    showToast('🐹 小团子蹭了蹭你！+2 🪙');
+    showToast(`🐹 ${state.petName}蹭了蹭你！+2 🪙`);
     saveGame();
     updateUI();
+  });
+});
+
+/* ===== Pet Rename ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const petNameEl = document.getElementById('petName');
+  petNameEl.addEventListener('click', () => {
+    const newName = prompt('给你的宠物取个新名字吧 🐹', state.petName);
+    if (newName && newName.trim() && newName.trim() !== state.petName) {
+      state.petName = newName.trim();
+      saveGame();
+      updateUI();
+      showToast(`名字改为「${state.petName}」啦！🎉`);
+      // Happy bounce
+      document.getElementById('petContainer').classList.add('bounce');
+      setTimeout(() => document.getElementById('petContainer').classList.remove('bounce'), 400);
+    }
   });
 });
 
